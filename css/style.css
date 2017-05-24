@@ -1,0 +1,42 @@
+hr{
+  width:50%;
+}
+.cover{
+      width: 100%;
+}
+.divider {
+  height: 1px;
+  width:100%;
+  display:block; /* for use on default inline elements like span */
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+
+.contact{
+  margin:0 auto;
+  width: 320px;
+	padding: 1%;
+}
+
+contact-form label {
+	display: block;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+	border: solid 2px #353535;
+	outline: none;
+	font-size: 18px;
+	padding: 10px;
+	margin: 0 0 10px;
+	width: 300px;
+}
+
+.contact-form textarea {
+	resize: vertical;
+	height: 120px;
+}
