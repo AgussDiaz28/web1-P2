@@ -4,47 +4,37 @@ $(document).ready(function(){
       $("#main").html(result);
     }
 
-    $("#contacto").click(function(){
-          $.ajax({
-                  dataType: "html",
-                  url: "contact.html",
-                  success: cargar
-                });
-          $("li").removeClass("active");
-          $("#contacto").addClass("active");
-        });
+    function loadajax("page"){
+      let result = page.concat(".html");
+        $.ajax({
+          url: result,
+          dataType: "html"
+          success: cargar
+          }
+        $("li").removeClass("active");
+        $(page).addClass("active");
+    });
 
-
-    $("#home").click(function(){
-      $.ajax({
+    $("#home").on("click",function(){
+      loadajax("home");
+      /*$.ajax({
               dataType: "html",
               url: "home.html",
               success: cargar
             });
             $("li").removeClass("active");
-            $("#home").addClass("active");
+            $("#home").addClass("active"); */
     });
 
-    $("#experiencias").click(function(){
-      $.ajax({
-              dataType: "html",
-              url: "experiencias.html",
-              success: cargar
-            });
-            $("li").removeClass("active");
-            $("#experiencias").addClass("active");
+    $("#experiencias").on("click",function(){
+      loadajax("experiencias");
     });
 
-    $("#paquetes").click(function(){
-      $.ajax({
-              dataType: "html",
-              url: "paquetes.html",
-              success: cargar
-            });
-            $("li").removeClass("active");
-            $("#paquetes").addClass("active");
-
+    $("#paquetes").on("click",function(){
+      loadajax("paquetes");
     });
 
-
+    $("#contacto").on("click",function(){
+      loadajax("contacto");
+    });
 });
