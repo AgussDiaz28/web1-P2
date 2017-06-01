@@ -1,6 +1,11 @@
 hr{
   width:50%;
 }
+
+ul{
+  list-style: none;
+}
+
 .cover{
       width: 100%;
 }
