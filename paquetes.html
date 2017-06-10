@@ -1,44 +1,46 @@
-<h1> Disfruta de tus vacaciones ahorrando con Odhram Viajes </h1>
+<h1> Disfruta de tus vacaciones ahorrando con Odhram </h1>
 <hr>
-    <div class="container">
-
-           <table class="table table-hover js-table-add">
-              <tr>
-                <th>Pais</th>
-                <th>Ciudad</th>
-                <th>Precio Normal ($)</th>
-                <th>Precio Promocion ($)</th>
-                <th>  </th>
-              </tr>
-              <tr>
-                <td>Estados Unidos</td>
-                <td>San Francisco</td>
-                <td>25.000</td>
-                <td>20.000</td>
-                <td><span class="glyphicon glyphicon-trash"></span></td>
-              </tr>
-              <tr>
-                  <td>Francia</td>
-                  <td>Niza</td>
-                  <td>18.000</td>
-                  <td>16.000</td>
-                  <td><span class="glyphicon glyphicon-trash"></span></td>
-              </tr>
-              <tr>
-                <td>Sudafrica</td>
-                <td>Ciudad del cabo</td>
-                <td>16.000</td>
-                <td>14.000</td>
-                <td><span class="glyphicon glyphicon-trash"></span></td>
-              </tr>
-              <tr>
-               <td>Brazil</td>
-               <td>Pipa</td>
-               <td>7.000</td>
-               <td>5.000</td>
-               <td><span class="glyphicon glyphicon-trash"></span></td>
-             </tr>
-           </table>
-
-
+    <div class="col-md-12">
+        <div class="container">
+               <table class="table table-hover js-table-add">
+                       <thead>
+                           <tr id="row0" >
+                             <th>Pais</th>
+                             <th>Ciudad</th>
+                             <th>Precio Normal ($)</th>
+                             <th>Precio Promocion ($)</th>
+                             <th>  </th>
+                           </tr>
+                       </thead>
+                       <tbody>                       </tbody>
+               </table>
+        </div>
     </div>
+
+    <hr>
+
+    <h1> Carga datos a la tabla de paquetes </h1>
+    <hr>
+        <div class="col-md-12">
+              <div class="container imputs">
+                    <ul class="text-center">
+                      <li>
+                        <label >Ingrese Pais: </label>
+                        <input type="text" name="" value="" id="pais">
+                      </li>
+                      <li>
+                        <label >Ingrese Ciudad: </label>
+                        <input type="text" name="" value="" id="ciudad">
+                      </li>
+                      <li>
+                        <label >Ingrese Precio Anterior: </label>
+                        <input type="text" name="" value="" id="precioI">
+                      </li>
+                      <li>
+                        <label >Ingrese Precio Promocion: </label>
+                        <input type="text" name="" value="" id="precioP">
+                      </li>
+                    </ul>
+              </div>
+              <button type="button" name="button" id="guardar"> Cargar Promocion </button>
+        </div>
