@@ -89,9 +89,9 @@ $( document ).ready( function() {
 		$( ".js-table-add tbody" ).html( html );
 
 		$("span.glyphicon").on("click",function() {
-					value = $("span.glyphicon").attr("value");
-					console.log(value);
-					//deleteRow(value);
+					row = $(this).attr("value");
+					console.log(row);
+					//deleteRow(valu e);
 		})
 
 	}

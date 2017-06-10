@@ -6,6 +6,10 @@ ul{
   list-style: none;
 }
 
+th{
+  text-align: center;
+}
+
 .cover{
       width: 100%;
 }
