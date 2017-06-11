@@ -1,6 +1,7 @@
 $( document ).ready( function() {
 
 	numGrupo =  91;
+	url = "https://web-unicen.herokuapp.com/api/thing/group/";
 
 	$("li").ready(function (){
 		$("#main").html("Cargando")
@@ -39,43 +40,56 @@ $( document ).ready( function() {
 			}
 																																									// Esta bien que el llamado AJax este aca ?
 		$.ajax( {
-				"url": "https://web-unicen.herokuapp.com/api/thing/",
+				"url": "https://web-unicen.herokuapp.com/api/thing",
 				"method": "POST",
+				async: false,																																								// Esto vale ?
 				"contentType": "Application/json; charset=utf-8",
 				"data": JSON.stringify( objeto ),
 				"dataType": "JSON",
-				"success": traerDatosTabla,
+				"success": 	traerDatosTabla,
 				"error": ErrorLog
 			} )
 		}
 	 )
 	};
 
-	function deleteRow( rowid ) {
-		$.ajax({
-			"url": "https://web-unicen.herokuapp.com/api/thing/group/" + numGrupo,
+	function deleteElement(data) {
+			console.log(data);
+
+	};
+
+	function deleteRow( row ) {
+			let objeto = {
+				"_id" : row,
+				"group" : numGrupo,
+				"thing" : {
+
+				}
+			}
+			$.ajax({
+			"url": url,
 			"method": "DELETE",
 			"contentType": "Application/json; charset=utf-8",
-			"data": JSON.stringify( row ),
+			"data": JSON.stringify(objeto),
 			"dataType": "JSON",
-			"success": mostrarDatosTabla,
+			"success": deleteElement,
 			"error": ErrorLog
 		});
-
-	}
+	};
 
 	function traerDatosTabla() {																										// trae todos los datos cuando carga la pagina de paquetes
 		$.ajax( {
-			"url": "https://web-unicen.herokuapp.com/api/thing/group/" + numGrupo,
+			"url": url+numGrupo,
 			"method": "GET",
 			"dataType": "JSON",
-			"success": mostrarDatosTabla	,
+			"success": mostrarDatosTabla,
 			"error": ErrorLog
 		} );
-		$( ".js-table-add" ).html( "<h4> Cargando... </h4>" )
+		// $( ".js-table-add" ).html( "<h4> Cargando... </h4>" );																								// Por que no desaparece despues de cargar ?
 	}
 
-	function mostrarDatosTabla( data ) {																															//funcion que transforma el objeto JSON a HTML
+
+	function mostrarDatosTabla( data ) {																															// Funcion que transforma el objeto JSON a HTML
 		let html
 		for ( let i = 0; i < data.information.length; i++ ) {
 			html += "<tr id=' " +data.information[i]._id + "'>"
@@ -83,20 +97,25 @@ $( document ).ready( function() {
 			html += "<td>" + data.information[i].thing.ciudad + "</td>";
 			html += "<td>" + data.information[i].thing.precioI + "</td>";
 			html += "<td>" + data.information[i].thing.precioP + "</td>";
-			html += '<td><span class="glyphicon glyphicon-trash" value=' +data.information[i]._id + '></span></td>'; //primero borro del servicio y succes borro la fila
+			html += '<td><span class="glyphicon glyphicon-trash" value=' +data.information[i]._id + '></span></td>';
 			html += "</tr>"
 		}
+
 		$( ".js-table-add tbody" ).html( html );
 
 		$("span.glyphicon").on("click",function() {
 					row = $(this).attr("value");
-					console.log(row);
-					//deleteRow(valu e);
+					deleteRow(row);
+					// -------------- Deberia llamarse desde el sucess por que por el asincronismo la fila desaparece del HTML pero no del servicio
+					var tr = $(this).closest('tr')
+					tr.css("background-color","#FF3700");
+					tr.fadeOut(400, function(){
+						tr.remove();
+					});
+					// ........................
 		})
 
 	}
-
-
 
 	function Guardado(data) {
 		for ( let i = 0; i < data.information.length; i++ ) {
