@@ -54,23 +54,16 @@ $( document ).ready( function() {
 	};
 
 	function deleteElement(data) {
-			console.log(data);
+			traerDatosTabla();
 
 	};
 
 	function deleteRow( row ) {
-			let objeto = {
-				"_id" : row,
-				"group" : numGrupo,
-				"thing" : {
-
-				}
-			}
 			$.ajax({
-			"url": url,
+			"url": 'https://web-unicen.herokuapp.com/api/thing/'+row,
 			"method": "DELETE",
 			"contentType": "Application/json; charset=utf-8",
-			"data": JSON.stringify(objeto),
+
 			"dataType": "JSON",
 			"success": deleteElement,
 			"error": ErrorLog
