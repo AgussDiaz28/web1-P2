@@ -72,6 +72,10 @@ $( document ).ready( function() {
 		});
 	};
 
+	function deleteElement() {
+
+	}
+
 	function traerDatosTabla() {																										// trae todos los datos cuando carga la pagina de paquetes
 		$.ajax( {
 			"url": url+numGrupo,
@@ -80,7 +84,7 @@ $( document ).ready( function() {
 			"success": mostrarDatosTabla,
 			"error": ErrorLog
 		} );
-		 $( ".js-table-add" ).html( "<h4> Cargando... </h4>" );																								// Por que no desaparece despues de cargar ?
+		 $( ".js-table-load" ).html( "<h4> Cargando... </h4>" );																								// Por que no desaparece despues de cargar ?
 	};
 
 	function mostrarDatosTabla( data ) {																															// Funcion que transforma el objeto JSON a HTML
@@ -104,7 +108,7 @@ $( document ).ready( function() {
 					var tr = $(this).closest('tr')
 					tr.css("background-color","#FF3700");
 					tr.fadeOut(400, function(){
-						tr.remove();
+					tr.remove();
 					});
 					// ........................
 		});
