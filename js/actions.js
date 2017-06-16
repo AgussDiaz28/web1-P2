@@ -9,6 +9,7 @@ $( document ).ready( function() {
 
 	"use strict";
 
+
 	$( "#home" ).ready( function() {
 		$.ajax( {
 			dataType: "html",
@@ -17,6 +18,7 @@ $( document ).ready( function() {
 		} );
 		$( "li" ).removeClass( "active" );
 		$( "#home" ).addClass( "active" );
+		//llenarTabla();
 
 	} );
 
@@ -24,46 +26,46 @@ $( document ).ready( function() {
 		$( "#main" ).html( result );
 
 		$( "#guardar" ).on( "click", function( event ) {																							// En la pagina de carga de promociones existe el boton Guardar para cargar la tabla
+
 			event.preventDefault();
+
 			let pais = $( "#pais" ).val();
 			let ciudad = $( "#ciudad" ).val();
 			let precioI = $( "#precioI" ).val();
 			let precioP = $( "#precioP" ).val();
+
 			let objeto = {
-				"group": numGrupo,
-				"thing": {
-					"pais": pais,
-					"ciudad": ciudad ,
-					"precioI": precioI,
-					"precioP": precioP,
-				}
+										"group": numGrupo,
+										"thing": {
+															"pais": pais,
+															"ciudad": ciudad ,
+															"precioI": precioI,
+															"precioP": precioP,
+														}
 			}
-																																									// Esta bien que el llamado AJax este aca ?
-		$.ajax( {
-				"url": "https://web-unicen.herokuapp.com/api/thing",
-				"method": "POST",
-				async: false,																																								// Esto vale ?
-				"contentType": "Application/json; charset=utf-8",
-				"data": JSON.stringify( objeto ),
-				"dataType": "JSON",
-				"success": 	traerDatosTabla,
-				"error": ErrorLog
-			} )
-		}
-	 )
-	};
-
-	function deleteElement(data) {
-			traerDatosTabla();
+				subirTabla(objeto);
+		});
 
 	};
+
+	function subirTabla(ObjJSON) {
+				$.ajax( {
+						"url": "https://web-unicen.herokuapp.com/api/thing",
+						"method": "POST",																																							// Esto vale ?
+						"contentType": "Application/json; charset=utf-8",
+						"data": JSON.stringify( ObjJSON ),
+						"dataType": "JSON",
+						"success": 	traerDatosTabla,
+						"error": ErrorLog
+					} );
+	};
+
 
 	function deleteRow( row ) {
 			$.ajax({
 			"url": 'https://web-unicen.herokuapp.com/api/thing/'+row,
 			"method": "DELETE",
 			"contentType": "Application/json; charset=utf-8",
-
 			"dataType": "JSON",
 			"success": deleteElement,
 			"error": ErrorLog
@@ -78,9 +80,8 @@ $( document ).ready( function() {
 			"success": mostrarDatosTabla,
 			"error": ErrorLog
 		} );
-		// $( ".js-table-add" ).html( "<h4> Cargando... </h4>" );																								// Por que no desaparece despues de cargar ?
-	}
-
+		 $( ".js-table-add" ).html( "<h4> Cargando... </h4>" );																								// Por que no desaparece despues de cargar ?
+	};
 
 	function mostrarDatosTabla( data ) {																															// Funcion que transforma el objeto JSON a HTML
 		let html
@@ -106,16 +107,16 @@ $( document ).ready( function() {
 						tr.remove();
 					});
 					// ........................
-		})
+		});
 
-	}
+			$("#CPromo").on('click',function () {
+				llenarTabla();
+			})
 
-	function Guardado(data) {
-		for ( let i = 0; i < data.information.length; i++ ) {
+	};
 
-	}};
 
-	function loadajax( pagina ) {
+	function partialRender( pagina ) {
 		let result = pagina.concat( ".html" );
 		$.ajax( {
 			dataType: "html",
@@ -130,22 +131,60 @@ $( document ).ready( function() {
 		//Mostrar mensaje de error al usuario
 	}
 
+	function llenarTabla() {
+
+		let objeto1 = {
+			"group": numGrupo,
+			"thing": {
+				"pais": "CANADA",
+				"ciudad": "TORONRO" ,
+				"precioI": "21000",
+				"precioP": "18000",
+			}
+		};
+
+		let objeto2 = {
+			"group": numGrupo,
+			"thing": {
+				"pais": "USA",
+				"ciudad": "Las Vegas" ,
+				"precioI": "21000",
+				"precioP": "18000",
+			}
+		};
+
+		let objeto3 = {
+			"group": numGrupo,
+			"thing": {
+				"pais": "USA",
+				"ciudad": "NYC" ,
+				"precioI": "18000",
+				"precioP": "15000",
+			}
+		};
+
+		subirTabla(objeto1);
+		subirTabla(objeto2);
+		subirTabla(objeto2);
+
+	};
+
 	$( "#home" ).on( "click", function() {
-		loadajax( "home" );
+		partialRender( "home" );
 	} );
 
 	$( "#experiencias" ).on( "click", function() {
-		loadajax( "experiencias" );
+		partialRender( "experiencias" );
 	} );
 
 
 	$( "#paquetes" ).on( "click", function() {
-		loadajax( "paquetes" );
+		partialRender( "paquetes" );
 	  traerDatosTabla ();
 	} );
 
 	$( "#contacto" ).on( "click", function() {
-		loadajax( "contacto" );
+		partialRender( "contacto" );
 	} );
 
 
