@@ -20,6 +20,7 @@ $( document ).ready( function() {
 		$( "#home" ).addClass( "active" );
 	} );
 
+
 	function cargar( result ) {
 		$( "#main" ).html( result );
 
