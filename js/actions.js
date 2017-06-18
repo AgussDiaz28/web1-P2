@@ -18,8 +18,6 @@ $( document ).ready( function() {
 		} );
 		$( "li" ).removeClass( "active" );
 		$( "#home" ).addClass( "active" );
-		//llenarTabla();
-
 	} );
 
 	function cargar( result ) {
@@ -84,10 +82,10 @@ $( document ).ready( function() {
 			"success": mostrarDatosTabla,
 			"error": ErrorLog
 		} );
-		 $( ".js-table-load" ).html( "<h4> Cargando... </h4>" );																								// Por que no desaparece despues de cargar ?
+		 $( ".js-table-edit" ).html( "<h4> Cargando... </h4>" );																								// Por que no desaparece despues de cargar ?
 	};
 
-	function mostrarDatosTabla( data ) {																															// Funcion que transforma el objeto JSON a HTML
+	function mostrarDatosTabla( data ) {																													// Funcion que transforma el objeto JSON a HTML
 		let html
 		for ( let i = 0; i < data.information.length; i++ ) {
 			html += "<tr id=' " +data.information[i]._id + "'>"
@@ -132,7 +130,7 @@ $( document ).ready( function() {
 	};
 
 	function ErrorLog() {
-		//Mostrar mensaje de error al usuario
+		alert("Hubo un errro de Ajax")
 	}
 
 	function llenarTabla() {
@@ -169,7 +167,7 @@ $( document ).ready( function() {
 
 		subirTabla(objeto1);
 		subirTabla(objeto2);
-		subirTabla(objeto2);
+		subirTabla(objeto3);
 
 	};
 
