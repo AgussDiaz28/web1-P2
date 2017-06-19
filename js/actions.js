@@ -9,6 +9,7 @@ $( document ).ready( function() {
 
 	"use strict";
 
+	deleteRow("59483389154df5040060cb72");
 
 	$( "#home" ).ready( function() {
 		$.ajax( {
@@ -19,7 +20,6 @@ $( document ).ready( function() {
 		$( "li" ).removeClass( "active" );
 		$( "#home" ).addClass( "active" );
 	} );
-
 
 	function cargar( result ) {
 		$( "#main" ).html( result );
@@ -45,6 +45,10 @@ $( document ).ready( function() {
 				subirTabla(objeto);
 		});
 
+		$("#CPromo").on('click',function () {
+			llenarTabla();
+		});
+
 	};
 
 	function subirTabla(ObjJSON) {
@@ -59,7 +63,6 @@ $( document ).ready( function() {
 					} );
 	};
 
-
 	function deleteRow( row ) {
 			$.ajax({
 			"url": 'https://web-unicen.herokuapp.com/api/thing/'+row,
@@ -71,44 +74,55 @@ $( document ).ready( function() {
 		});
 	};
 
-	function editRow(row) {
+	function editRow( row ) {
 				$.ajax({
-				"url": 'https://web-unicen.herokuapp.com/api/thing/'+row,
+				"url": 'https://web-unicen.herokuapp.com/api/thing/' + row,
 				"method": "GET",
 				"contentType": "Application/json; charset=utf-8",
 				"dataType": "JSON",
-				"success": function () {
-					editJSON(row)
-				},
+				"success": editJSON,
 				"error": ErrorLog
 			});
 	}
 
-	function editJSON(data,row) {																											//Preguntar a Franquito
-		$( "#pais" ).val(data.information.row.pais );
-		$( "#ciudad" ).val(data.information.row.ciudad  );
-		$( "#precioI" ).val(data.information.row.precioI  );
-		$( "#precioP" ).val(data.information.row.precioP );
+	function editedRow( ObjJSON ) {
+		$.ajax( {
+				"url": "https://web-unicen.herokuapp.com/api/thing/" + row,
+				"method": "PUT",
+				"contentType": "Application/json; charset=utf-8",
+				"data": JSON.stringify( ObjJSON ),
+				"dataType": "JSON",
+				"success": 	traerDatosTabla,
+				"error": ErrorLog
+			} );
+	}
+
+	function editJSON( data ) {
+
+	  $( "#pais" ).val(data.information.thing.pais );
+		$( "#ciudad" ).val(data.information.thing.ciudad  );
+		$( "#precioI" ).val(data.information.thing.precioI  );
+		$( "#precioP" ).val(data.information.thing.precioP );
 
 		$("#editar").on("click",function () {
 			let obJSON = {
 										"group": numGrupo,
-										"_id": row,
 										"thing": {
-															"pais": pais,
-															"ciudad": ciudad ,
-															"precioI": precioI,
-															"precioP": precioP,
+															"pais":  $( "#pais" ).val(),
+															"ciudad": 	$( "#ciudad" ).val(),
+															"precioI": $( "#precioI" ).val(),
+															"precioP": 		$( "#precioP" ).val(),
 														}
 									}
-		subirTabla(obJSON);
 
-		})
+		editedRow(obJSON);
+
+	})
 	}
 
 	function deleteElement() {
 
-	}
+	};
 
 	function traerDatosTabla() {																										// trae todos los datos cuando carga la pagina de paquetes
 		$.ajax( {
@@ -155,12 +169,7 @@ $( document ).ready( function() {
 			editRow(row);
 		});
 
-		$("#CPromo").on('click',function () {
-			llenarTabla();
-		});
-
 	};
-
 
 	function partialRender( pagina ) {
 		let result = pagina.concat( ".html" );
@@ -178,12 +187,11 @@ $( document ).ready( function() {
 	}
 
 	function llenarTabla() {
-
 		let objeto1 = {
 			"group": numGrupo,
 			"thing": {
-				"pais": "CANADA",
-				"ciudad": "TORONRO" ,
+				"pais": "Canada",
+				"ciudad": "Toronto " ,
 				"precioI": "21000",
 				"precioP": "18000",
 			}
@@ -192,7 +200,7 @@ $( document ).ready( function() {
 		let objeto2 = {
 			"group": numGrupo,
 			"thing": {
-				"pais": "USA",
+				"pais": "Estados Unidos",
 				"ciudad": "Las Vegas" ,
 				"precioI": "21000",
 				"precioP": "18000",
@@ -202,8 +210,8 @@ $( document ).ready( function() {
 		let objeto3 = {
 			"group": numGrupo,
 			"thing": {
-				"pais": "USA",
-				"ciudad": "NYC" ,
+				"pais": "Estados Unidos",
+				"ciudad": "New York" ,
 				"precioI": "18000",
 				"precioP": "15000",
 			}
