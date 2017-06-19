@@ -71,22 +71,39 @@ $( document ).ready( function() {
 		});
 	};
 
-	function editRow() {
+	function editRow(row) {
 				$.ajax({
 				"url": 'https://web-unicen.herokuapp.com/api/thing/'+row,
 				"method": "GET",
 				"contentType": "Application/json; charset=utf-8",
 				"dataType": "JSON",
-				"success": editJSON,
+				"success": function () {
+					editJSON(row)
+				},
 				"error": ErrorLog
 			});
 	}
 
-	function editJSON(data) {																											//Preguntar a Franquito
+	function editJSON(data,row) {																											//Preguntar a Franquito
 		$( "#pais" ).val(data.information.row.pais );
 		$( "#ciudad" ).val(data.information.row.ciudad  );
 		$( "#precioI" ).val(data.information.row.precioI  );
 		$( "#precioP" ).val(data.information.row.precioP );
+
+		$("#editar").on("click",function () {
+			let obJSON = {
+										"group": numGrupo,
+										"_id": row,
+										"thing": {
+															"pais": pais,
+															"ciudad": ciudad ,
+															"precioI": precioI,
+															"precioP": precioP,
+														}
+									}
+		subirTabla(obJSON);
+
+		})
 	}
 
 	function deleteElement() {
@@ -133,7 +150,7 @@ $( document ).ready( function() {
 
 		$("span.glyphicon-edit").on("click",function() {
 			row = $(this).attr("value");
-			$( "#guardar" ).attr('id', 'editar');
+			$("#guardar").attr("id","editar")
 			$( ".guardar" ).html("Editar Columna");
 			editRow(row);
 		});
