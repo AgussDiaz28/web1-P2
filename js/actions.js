@@ -71,6 +71,24 @@ $( document ).ready( function() {
 		});
 	};
 
+	function editRow() {
+				$.ajax({
+				"url": 'https://web-unicen.herokuapp.com/api/thing/'+row,
+				"method": "GET",
+				"contentType": "Application/json; charset=utf-8",
+				"dataType": "JSON",
+				"success": editJSON,
+				"error": ErrorLog
+			});
+	}
+
+	function editJSON(data) {																											//Preguntar a Franquito
+		$( "#pais" ).val(data.information.row.pais );
+		$( "#ciudad" ).val(data.information.row.ciudad  );
+		$( "#precioI" ).val(data.information.row.precioI  );
+		$( "#precioP" ).val(data.information.row.precioP );
+	}
+
 	function deleteElement() {
 
 	}
@@ -95,12 +113,13 @@ $( document ).ready( function() {
 			html += "<td>" + data.information[i].thing.precioI + "</td>";
 			html += "<td>" + data.information[i].thing.precioP + "</td>";
 			html += '<td><span class="glyphicon glyphicon-trash" value=' +data.information[i]._id + '></span></td>';
+			html += '<td><span class="glyphicon glyphicon-edit" value=' +data.information[i]._id + '></span></td>';
 			html += "</tr>"
 		}
 
 		$( ".js-table-add tbody" ).html( html );
 
-		$("span.glyphicon").on("click",function() {
+		$("span.glyphicon-trash").on("click",function() {
 					row = $(this).attr("value");
 					deleteRow(row);
 					// -------------- Deberia llamarse desde el sucess por que por el asincronismo la fila desaparece del HTML pero no del servicio
@@ -112,9 +131,16 @@ $( document ).ready( function() {
 					// ........................
 		});
 
-			$("#CPromo").on('click',function () {
-				llenarTabla();
-			})
+		$("span.glyphicon-edit").on("click",function() {
+			row = $(this).attr("value");
+			$( "#guardar" ).attr('id', 'editar');
+			$( ".guardar" ).html("Editar Columna");
+			editRow(row);
+		});
+
+		$("#CPromo").on('click',function () {
+			llenarTabla();
+		});
 
 	};
 
